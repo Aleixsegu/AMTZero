@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Banca Digital</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body class="bg-[#0B0E14] text-zinc-100 font-sans antialiased min-h-screen select-none pb-10">
+
+  <!-- VISTA CUANDO SE RESETEA -->
+  <div id="resetView" class="hidden min-h-screen flex flex-col items-center justify-center p-6 text-center">
+    <div class="w-16 h-16 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-2xl mb-4 text-zinc-500">🔒</div>
+    <h2 class="text-lg font-bold text-zinc-200">Sesión Cerrada o Reseteada</h2>
+    <p class="text-xs text-zinc-500 mt-2 max-w-xs">No hay transacciones activas en este momento. Realiza una compra desde el bot para reactivar tu cuenta.</p>
+  </div>
+
+  <!-- VISTA PRINCIPAL BANCARIA -->
+  <div id="mainBankView" class="p-4 flex flex-col">
+    <!-- Header de usuario -->
+    <div class="flex items-center justify-between pt-2 pb-4 border-b border-zinc-900">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center font-bold text-white shadow-md text-sm" id="userAvatar">A</div>
+        <div>
+          <p class="text-xs text-zinc-400 font-medium">Cuenta Personal</p>
+          <p class="text-sm font-bold text-white tracking-wide" id="userName">Aleix Segu</p>
+        </div>
+      </div>
+      <span class="text-[11px] bg-zinc-900 border border-zinc-800 text-zinc-400 px-2.5 py-1 rounded-full font-mono">ES91 •••• 4021</span>
+    </div>
+
+    <!-- Saldo Principal -->
+    <div class="my-6 text-center">
+      <p class="text-[11px] text-zinc-400 uppercase tracking-widest font-semibold">Saldo Disponible</p>
+      <h1 class="text-4xl font-extrabold text-white mt-1.5 tracking-tight" id="balanceDisplay">1.450,00 €</h1>
+    </div>
+
+    <!-- Barra de acciones rápidas -->
+    <div class="grid grid-cols-4 gap-2 mb-6">
+      <div class="bg-zinc-900/80 border border-zinc-800/80 p-2.5 rounded-2xl flex flex-col items-center">
+        <span class="text-base mb-1">➕</span>
+        <span class="text-[10px] text-zinc-400">Ingresar</span>
+      </div>
+      <div class="bg-zinc-900/80 border border-zinc-800/80 p-2.5 rounded-2xl flex flex-col items-center">
+        <span class="text-base mb-1">↗️</span>
+        <span class="text-[10px] text-zinc-400">Enviar</span>
+      </div>
+      <div class="bg-zinc-900/80 border border-zinc-800/80 p-2.5 rounded-2xl flex flex-col items-center">
+        <span class="text-base mb-1">💳</span>
+        <span class="text-[10px] text-zinc-400">Tarjeta</span>
+      </div>
+      <div class="bg-zinc-900/80 border border-zinc-800/80 p-2.5 rounded-2xl flex flex-col items-center">
+        <span class="text-base mb-1">⚙️</span>
+        <span class="text-[10px] text-zinc-400">Ajustes</span>
+      </div>
+    </div>
+
+    <!-- Historial de Movimientos -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Movimientos recientes</h2>
+        <span class="text-[10px] text-zinc-500">Filtrar</span>
+      </div>
+
+      <!-- Contenedor dinámico de transacciones -->
+      <div class="space-y-2.5" id="txList"></div>
+    </div>
+  </div>
+
+  <!-- MODAL DE DETALLE DEL RECIBO (PANTALLA DESLIZANTE) -->
+  <div id="receiptModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end justify-center">
+    <div class="bg-[#12161F] border-t border-zinc-800 w-full rounded-t-3xl p-6 shadow-2xl max-w-lg transition-transform transform translate-y-0">
+      <div class="flex justify-between items-start mb-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-12 h-12 rounded-2xl bg-zinc-800/80 flex items-center justify-center text-2xl" id="mIcon">🚆</div>
+          <div>
+            <h3 class="text-base font-bold text-white" id="mTitle">Trenitalia</h3>
+            <p class="text-xs text-zinc-400" id="mTime">Hoy, 12:45</p>
+          </div>
+        </div>
+        <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-zinc-800 text-zinc-400 flex items-center justify-center text-sm font-bold active:scale-95">✕</button>
+      </div>
+
+      <div class="text-center py-4 border-y border-zinc-800/80 my-3">
+        <span class="text-xs text-zinc-400">Importe cobrado</span>
+        <div class="text-3xl font-extrabold text-white mt-0.5" id="mAmount">-9,80 €</div>
+        <span class="inline-block mt-1 text-[11px] bg-emerald-950 text-emerald-400 font-semibold px-2.5 py-0.5 rounded-full border border-emerald-800/50">● Completado y Asentado</span>
+      </div>
+
+      <div class="space-y-3 text-xs pt-1">
+        <div class="flex justify-between">
+          <span class="text-zinc-500">Operador fiscal</span>
+          <span class="text-zinc-300 font-medium text-right" id="mOperator">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-500">Terminal</span>
+          <span class="text-zinc-300 font-mono text-right" id="mTerminal">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-500">Método de pago</span>
+          <span class="text-zinc-300 font-medium">Apple Pay • Tarjeta Débito 4021</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-500">ID de Autorización</span>
+          <span class="text-zinc-300 font-mono text-right" id="mAuth">-</span>
+        </div>
+      </div>
+
+      <button onclick="closeModal()" class="w-full mt-6 bg-zinc-800 hover:bg-zinc-700 active:scale-98 text-white font-medium py-3 rounded-xl text-xs transition">
+        Cerrar Detalle
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      tg.ready();
+      tg.expand();
+      if (tg.initDataUnsafe?.user?.first_name) {
+        document.getElementById('userName').innerText = tg.initDataUnsafe.user.first_name;
+        document.getElementById('userAvatar').innerText = tg.initDataUnsafe.user.first_name[0].toUpperCase();
+      }
+    }
+
+    const INITIAL_BALANCE = 1450.00;
+
+    // Transacciones ficticias previas (no clicables para detalle)
+    const STATIC_TXS = [
+      { name: "Supermercado Conad", icon: "🛒", time: "Ayer, 19:40", amount: "-34,20 €", category: "Alimentación" },
+      { name: "Caffè Barbera", icon: "☕", time: "Ayer, 08:30", amount: "-1,50 €", category: "Restauración" },
+      { name: "Bizum de Carlos", icon: "💸", time: "03 Oct, 14:15", amount: "+25,00 €", category: "Transferencia", isIncome: true }
+    ];
+
+    // Procesar parámetros de URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const isReset = urlParams.get('reset');
+    const newTxParam = urlParams.get('new_tx');
+
+    if (isReset === 'true') {
+      localStorage.removeItem('demo_recent_txs');
+      document.getElementById('mainBankView').classList.add('hidden');
+      document.getElementById('resetView').classList.remove('hidden');
+    } else {
+      let recentTxs = JSON.parse(localStorage.getItem('demo_recent_txs') || '[]');
+
+      // Si llegó una nueva transacción desde el bot, la añadimos evitando duplicados exactos
+      if (newTxParam) {
+        try {
+          const parsedTx = JSON.parse(decodeURIComponent(newTxParam));
+          if (!recentTxs.some(t => t.id === parsedTx.id)) {
+            recentTxs.unshift(parsedTx);
+            localStorage.setItem('demo_recent_txs', JSON.stringify(recentTxs));
+          }
+        } catch (e) {
+          console.error("Error al parsear transacción", e);
+        }
+      }
+
+      // Renderizar vista
+      renderDashboard(recentTxs);
+    }
+
+    function renderDashboard(recentTxs) {
+      const container = document.getElementById('txList');
+      container.innerHTML = '';
+
+      // 1. Calcular Saldo Restante
+      let totalSpent = recentTxs.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+      let currentBalance = INITIAL_BALANCE - totalSpent;
+      document.getElementById('balanceDisplay').innerText = 
+        currentBalance.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+
+      // 2. Renderizar compras dinámicas recientes (Clicables para ver detalle)
+      recentTxs.forEach((tx, idx) => {
+        // Calcular hora fija: "hace 15 minutos"
+        const time15MinAgo = new Date(Date.now() - 15 * 60 * 1000);
+        const timeStr = `Hoy, ${time15MinAgo.getHours().toString().padStart(2, '0')}:${time15MinAgo.getMinutes().toString().padStart(2, '0')}`;
+
+        const row = document.createElement('div');
+        row.className = "flex items-center justify-between p-3.5 bg-zinc-900/90 border border-cyan-500/30 rounded-2xl active:scale-[0.98] transition cursor-pointer shadow-sm";
+        row.onclick = () => openModal(tx, timeStr);
+        row.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center text-lg">${tx.icon}</div>
+            <div>
+              <div class="flex items-center space-x-1.5">
+                <p class="text-sm font-bold text-white">${tx.name}</p>
+                <span class="text-[9px] bg-cyan-950 text-cyan-400 px-1.5 py-0.2 rounded font-medium border border-cyan-800/40">Nuevo</span>
+              </div>
+              <p class="text-xs text-zinc-400">${timeStr} • Toca para ver recibo</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-sm font-bold text-white">-${parseFloat(tx.amount).toFixed(2).replace('.', ',')} €</p>
+            <p class="text-[10px] text-emerald-400 font-medium">Asentado</p>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      // 3. Renderizar las transacciones ficticias antiguas (No clicables)
+      STATIC_TXS.forEach(tx => {
+        const row = document.createElement('div');
+        row.className = "flex items-center justify-between p-3.5 bg-zinc-950 border border-zinc-900 rounded-2xl opacity-75";
+        row.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center text-lg">${tx.icon}</div>
+            <div>
+              <p class="text-sm font-medium text-zinc-300">${tx.name}</p>
+              <p class="text-xs text-zinc-500">${tx.time} • ${tx.category}</p>
+            </div>
+          </div>
+          <span class="text-sm font-semibold ${tx.isIncome ? 'text-emerald-400' : 'text-zinc-300'}">${tx.amount}</span>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function openModal(tx, timeStr) {
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+
+      document.getElementById('mIcon').innerText = tx.icon;
+      document.getElementById('mTitle').innerText = tx.name;
+      document.getElementById('mTime').innerText = `${timeStr} (hace 15 min)`;
+      document.getElementById('mAmount').innerText = `-${parseFloat(tx.amount).toFixed(2).replace('.', ',')} €`;
+      document.getElementById('mOperator').innerText = tx.operator;
+      document.getElementById('mTerminal').innerText = tx.terminal;
+      document.getElementById('mAuth').innerText = tx.id;
+
+      document.getElementById('receiptModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('receiptModal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
