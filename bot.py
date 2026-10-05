@@ -1,7 +1,10 @@
 import datetime
+import json
+import os
 import urllib.parse
-import dotenv
+from dotenv import load_dotenv
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, WebAppInfo
+from telegram.error import BadRequest
 from telegram.ext import (
     ApplicationBuilder,
     CallbackQueryHandler,
@@ -9,12 +12,19 @@ from telegram.ext import (
     ContextTypes,
 )
 
-dotenv.load_dotenv()
+# Cargar variables de entorno desde el archivo .env
+load_dotenv()
 
-TOKEN = dotenv.get("TOKEN")  # Pega aquí el token de @BotFather
-# La URL HTTPS donde sirvas tu index.html (ej. Cloudflare Tunnel, ngrok, Vercel o GitHub Pages)
-BASE_WEBAPP_URL = dotenv.get("BASE_WEBAPP_URL")
+TOKEN = os.getenv("TOKEN")
+BASE_WEBAPP_URL = os.getenv("BASE_WEBAPP_URL")
 
+if not TOKEN:
+    raise ValueError("Error: La variable TOKEN no está definida en el archivo .env")
+
+if not BASE_WEBAPP_URL:
+    raise ValueError("Error: La variable BASE_WEBAPP_URL no está definida en el archivo .env")
+
+# Catálogo de billetes de transporte para la demo
 TICKETS = {
     "transit": {
         "name": "Bus / Metro",
@@ -32,7 +42,8 @@ TICKETS = {
     },
 }
 
-def get_initial_keyboard():
+def get_initial_keyboard() -> InlineKeyboardMarkup:
+    """Devuelve la botonera inicial con los billetes de compra."""
     return InlineKeyboardMarkup([
         [
             InlineKeyboardButton("🚌 Bus / Metro (2,00 €)", callback_data="buy_transit"),
@@ -41,7 +52,7 @@ def get_initial_keyboard():
     ])
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Inicializar la lista de compras de la sesión
+    """Comando /start: reinicia la sesión del usuario y muestra los botones de compra."""
     context.user_data["purchases"] = []
     
     await update.message.reply_text(
@@ -52,16 +63,24 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def handle_purchase(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Procesa la compra del billete, actualiza la sesión y añade el botón de la WebApp."""
     query = update.callback_query
-    await query.answer("💳 Pago contactless autorizado")
+
+    # Responder al callback de forma segura ante timeouts de Telegram
+    try:
+        await query.answer("💳 Pago contactless autorizado")
+    except BadRequest:
+        pass
 
     ticket_key = query.data.replace("buy_", "")
-    ticket = TICKETS[ticket_key]
+    ticket = TICKETS.get(ticket_key)
+    if not ticket:
+        return
 
     if "purchases" not in context.user_data:
         context.user_data["purchases"] = []
 
-    # Registrar la compra con timestamp y datos para la vista de detalle
+    # Construir el objeto de transacción
     now = datetime.datetime.now()
     tx_item = {
         "id": f"TX-{now.strftime('%H%M%S')}",
@@ -71,29 +90,32 @@ async def handle_purchase(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "operator": ticket["operator"],
         "terminal": ticket["terminal"],
         "timestamp": now.strftime("%H:%M:%S"),
-        "mins_ago": 15  # Requisito: simular que ocurrió hace 15 min
+        "mins_ago": 15  # Simulación de cargo hace 15 minutos
     }
     context.user_data["purchases"].append(tx_item)
 
-    # Serializar la última compra para que la WebApp la ingeste a su localStorage
-    encoded_item = urllib.parse.quote(str(tx_item).replace("'", '"'))
+    # Serializar el ítem en JSON codificado para URL
+    encoded_item = urllib.parse.quote(json.dumps(tx_item))
     webapp_url = f"{BASE_WEBAPP_URL}?new_tx={encoded_item}"
 
-    # Teclado dinámico: permite seguir comprando o ver la app bancaria
+    # Teclado dinámico con contador acumulado
     keyboard = [
         [
             InlineKeyboardButton("🚌 Bus / Metro (2,00 €)", callback_data="buy_transit"),
             InlineKeyboardButton("🚆 Trenitalia (9,80 €)", callback_data="buy_trenitalia"),
         ],
         [
-            InlineKeyboardButton(f"📱 Ver en mi App ({len(context.user_data['purchases'])} compras)", web_app=WebAppInfo(url=webapp_url))
+            InlineKeyboardButton(
+                f"📱 Ver en mi App ({len(context.user_data['purchases'])} compras)",
+                web_app=WebAppInfo(url=webapp_url)
+            )
         ],
         [
             InlineKeyboardButton("🔄 Resetear Demo", callback_data="reset_demo")
         ]
     ]
 
-    total_gastado = sum(p["amount"] for p in context.user_data["purchases"])
+    total_spent = sum(p["amount"] for p in context.user_data["purchases"])
 
     await query.edit_message_text(
         text=(
@@ -101,7 +123,7 @@ async def handle_purchase(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"━━━━━━━━━━━━━━━━━━━\n"
             f"🛒 **Último artículo:** {ticket['icon']} {ticket['name']} (-{ticket['amount']:.2f} €)\n"
             f"🧾 **Total compras acumuladas:** {len(context.user_data['purchases'])}\n"
-            f"💶 **Gasto sesión:** -{total_gastado:.2f} €\n"
+            f"💶 **Gasto de la sesión:** -{total_spent:.2f} €\n"
             f"━━━━━━━━━━━━━━━━━━━\n\n"
             f"Puedes comprar otro billete, abrir tu app bancaria para revisar el extracto detallado o resetear la sesión:"
         ),
@@ -110,12 +132,16 @@ async def handle_purchase(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def handle_reset(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Limpia el historial de compras y restaura el mensaje inicial."""
     query = update.callback_query
-    await query.answer("Sistema reseteado")
-    context.user_data["purchases"] = []
 
-    # Enviamos una url con reset=true para que la webapp borre su localStorage
-    reset_url = f"{BASE_WEBAPP_URL}?reset=true"
+    # Responder al callback de forma segura ante timeouts
+    try:
+        await query.answer("Sistema reseteado")
+    except BadRequest:
+        pass
+
+    context.user_data["purchases"] = []
 
     await query.edit_message_text(
         text=(
@@ -128,8 +154,12 @@ async def handle_reset(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 if __name__ == "__main__":
     app = ApplicationBuilder().token(TOKEN).build()
+    
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(handle_purchase, pattern="^buy_"))
     app.add_handler(CallbackQueryHandler(handle_reset, pattern="^reset_demo$"))
+
     print("Bot corriendo... Abre Telegram y escribe /start")
-    app.run_polling()
+    
+    # drop_pending_updates=True descarta clics atrasados mientras el bot estuvo apagado
+    app.run_polling(drop_pending_updates=True)
