@@ -1,5 +1,6 @@
 import datetime
 import urllib.parse
+import dotenv
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, WebAppInfo
 from telegram.ext import (
     ApplicationBuilder,
@@ -8,9 +9,11 @@ from telegram.ext import (
     ContextTypes,
 )
 
-TOKEN = "TU_BOT_TOKEN_AQUI"
+dotenv.load_dotenv()
+
+TOKEN = dotenv.get("TOKEN")  # Pega aquí el token de @BotFather
 # La URL HTTPS donde sirvas tu index.html (ej. Cloudflare Tunnel, ngrok, Vercel o GitHub Pages)
-BASE_WEBAPP_URL = "https://tu-dominio-o-ngrok.app"
+BASE_WEBAPP_URL = dotenv.get("BASE_WEBAPP_URL")
 
 TICKETS = {
     "transit": {
