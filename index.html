@@ -2,187 +2,380 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BBVA España</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="vercel-toolbar" content="disabled" />
+  <title>BBVA</title>
+  
+  <!-- Iconos estáticos desde /data -->
+  <link rel="icon" type="image/png" href="/data/bbva-icon.png" />
+  <link rel="apple-touch-icon" href="/data/bbva-icon.png" />
+  <link rel="shortcut icon" href="/data/bbva-icon.png" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* Colores oficiales BBVA */
-    .bg-bbva-navy { background-color: #043263; }
-    .bg-bbva-blue { background-color: #004481; }
-    .bg-bbva-light-blue { background-color: #1464A5; }
-    .bg-bbva-aqua { background-color: #2DCCCD; }
-    .text-bbva-navy { color: #043263; }
-    .text-bbva-blue { color: #004481; }
-    .border-bbva-blue { border-color: #004481; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    vercel-live-feedback, #__next-route-announcer__, [data-vercel-toolbar] {
+      display: none !important;
+      visibility: hidden !important;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #F7F9FB;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-bbva-serif {
+      font-family: 'DM Serif Display', Georgia, serif;
+    }
   </style>
 </head>
-<body class="bg-[#F4F6F8] text-[#121212] antialiased min-h-screen select-none pb-12">
+<body class="text-slate-800 antialiased min-h-screen select-none">
 
-  <!-- VISTA CUANDO SE RESETEA -->
-  <div id="resetView" class="hidden min-h-screen flex flex-col items-center justify-center p-6 text-center bg-white">
-    <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-2xl mb-4 text-slate-400">🔒</div>
-    <h2 class="text-base font-bold text-bbva-navy">Sesión desconectada</h2>
-    <p class="text-xs text-slate-500 mt-2 max-w-xs">No hay movimientos activos en el terminal. Realiza una operación desde el bot para consultar tu posición global.</p>
-  </div>
+  <!-- ========================================== -->
+  <!-- VISTA 1: LISTADO PRINCIPAL BBVA           -->
+  <!-- ========================================== -->
+  <div id="mainBankView" class="pb-12">
+    <!-- Header Fijo Superior -->
+    <header class="bg-[#F7F9FB] px-5 pt-1.5 pb-2.5 flex items-center justify-between sticky top-0 z-20">
+      <button class="flex flex-col items-center text-[#0B2545] active:opacity-60 transition">
+        <svg class="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span class="text-[10px] font-medium mt-0.5">Volver</span>
+      </button>
 
-  <!-- VISTA PRINCIPAL BBVA -->
-  <div id="mainBankView" class="flex flex-col">
+      <h1 class="text-[17px] font-bold text-[#0B2545] tracking-tight">Cuenta *7609</h1>
 
-    <!-- CABECERA SUPERIOR BBVA -->
-    <header class="bg-bbva-navy text-white px-4 pt-3 pb-4 shadow-sm">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <div class="w-9 h-9 rounded-full bg-bbva-light-blue border border-white/20 flex items-center justify-center font-bold text-sm tracking-wide" id="userAvatar">
-            A
+      <div class="flex items-center space-x-4">
+        <!-- Blue -->
+        <button class="flex flex-col items-center text-[#0B2545]">
+          <div class="w-6 h-6 rounded-full border-[2.2px] border-[#0B2545] flex items-center justify-center"></div>
+          <span class="text-[10px] font-medium mt-0.5">Blue</span>
+        </button>
+        <!-- Menú con punto rojo -->
+        <button class="flex flex-col items-center text-[#0B2545] relative">
+          <div class="relative w-6 h-6 flex flex-col justify-center items-center space-y-1">
+            <span class="w-5 h-[2px] bg-[#0B2545] rounded-full"></span>
+            <span class="w-5 h-[2px] bg-[#0B2545] rounded-full"></span>
+            <span class="w-5 h-[2px] bg-[#0B2545] rounded-full"></span>
+            <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-[#D13232] rounded-full border-2 border-[#F7F9FB]"></span>
           </div>
-          <div>
-            <p class="text-[11px] text-slate-300 font-light leading-none">Hola,</p>
-            <p class="text-sm font-semibold text-white tracking-wide mt-0.5" id="userName">Aleix</p>
-          </div>
-        </div>
-        
-        <!-- Iconos funcionales BBVA -->
-        <div class="flex items-center space-x-3">
-          <button class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs">🔔</button>
-          <button class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs">💬</button>
-        </div>
-      </div>
-
-      <!-- Pestañas Posición Global -->
-      <div class="flex space-x-6 mt-4 text-xs border-b border-white/10 pb-1">
-        <button class="font-bold border-b-2 border-white pb-2 text-white">Cuentas y tarjetas</button>
-        <button class="text-slate-300 pb-2">Ahorro e inversión</button>
+          <span class="text-[10px] font-medium mt-0.5">Menú</span>
+        </button>
       </div>
     </header>
 
-    <!-- CUERPO PRINCIPAL -->
-    <main class="p-4 space-y-4">
-
-      <!-- TARJETA DE CUENTA (ESTILO BBVA) -->
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-4">
-        <div class="flex justify-between items-start">
-          <div>
-            <span class="text-[10px] tracking-wider uppercase font-semibold text-slate-500">Cuenta Online BBVA</span>
-            <p class="text-xs text-slate-400 font-mono mt-0.5">ES91 •••• •••• 4021</p>
+    <!-- Botones rápidos -->
+    <section class="px-3 pt-3 pb-5">
+      <div class="grid grid-cols-4 gap-1 text-center">
+        <!-- Buscar movimientos -->
+        <div class="flex flex-col items-center active:scale-95 transition">
+          <div class="w-[62px] h-[62px] bg-white rounded-full shadow-sm flex items-center justify-center text-[#0B2545]">
+            <svg class="w-6 h-6 stroke-[1.8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              <circle cx="15.5" cy="15.5" r="3.5" stroke="currentColor" stroke-width="1.8"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 18l2.5 2.5"/>
+            </svg>
           </div>
-          <span class="text-xs text-bbva-blue font-bold">Ver cuenta ›</span>
+          <span class="text-[11px] leading-tight text-[#0B2545] font-medium mt-2 max-w-[80px]">Buscar movimientos</span>
         </div>
 
-        <div class="mt-4">
-          <p class="text-[11px] text-slate-500 font-medium">Saldo disponible</p>
-          <div class="flex items-baseline space-x-1 mt-0.5">
-            <h1 class="text-3xl font-extrabold text-[#121212] tracking-tight" id="balanceDisplay">1.450,00</h1>
-            <span class="text-xl font-bold text-[#121212]">€</span>
+        <!-- Transferencias / Traspasos -->
+        <div class="flex flex-col items-center active:scale-95 transition">
+          <div class="w-[62px] h-[62px] bg-white rounded-full shadow-sm flex items-center justify-center text-[#0B2545]">
+            <svg class="w-6 h-6 stroke-[1.8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="2" y="5" width="20" height="14" rx="2" stroke-width="1.8"/>
+              <circle cx="6.5" cy="9.5" r="1.5" fill="currentColor"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 12h5m0 0l-2-2m2 2l-2 2"/>
+            </svg>
+          </div>
+          <span class="text-[11px] leading-tight text-[#0B2545] font-medium mt-2 max-w-[85px]">Transferencias / Traspasos</span>
+        </div>
+
+        <!-- Bizum -->
+        <div class="flex flex-col items-center active:scale-95 transition">
+          <div class="w-[62px] h-[62px] bg-white rounded-full shadow-sm flex items-center justify-center text-[#0B2545]">
+            <span class="font-bold text-xl tracking-tighter">%</span>
+          </div>
+          <span class="text-[11px] leading-tight text-[#0B2545] font-medium mt-2">Bizum</span>
+        </div>
+
+        <!-- Mostrar más -->
+        <div class="flex flex-col items-center active:scale-95 transition">
+          <div class="w-[62px] h-[62px] bg-white rounded-full shadow-sm flex items-center justify-center text-[#0B2545]">
+            <div class="flex space-x-1">
+              <span class="w-1.5 h-1.5 bg-[#0B2545] rounded-full"></span>
+              <span class="w-1.5 h-1.5 bg-[#0B2545] rounded-full"></span>
+              <span class="w-1.5 h-1.5 bg-[#0B2545] rounded-full"></span>
+            </div>
+          </div>
+          <span class="text-[11px] leading-tight text-[#0B2545] font-medium mt-2">Mostrar más</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Título y Pestañas -->
+    <section class="px-5 pt-3">
+      <h2 class="font-bbva-serif text-[28px] text-[#0B2545] font-bold tracking-tight">Últimos movimientos</h2>
+      <div class="flex space-x-6 mt-4 text-[15px] font-bold text-[#0B2545]">
+        <div class="relative pb-1.5 cursor-pointer">
+          <span>Fecha</span>
+          <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#0B2545] rounded-full"></span>
+        </div>
+        <div class="text-[#0B2545] pb-1.5 opacity-90 cursor-pointer">Categoría</div>
+        <div class="text-[#0B2545] pb-1.5 opacity-90 cursor-pointer">Marcas</div>
+      </div>
+    </section>
+
+    <!-- Feed de Transacciones -->
+    <main class="px-4 pt-5 space-y-6">
+
+      <!-- DÍA DE HOY (Compras acumuladas del bot) -->
+      <div id="todaySection" class="hidden">
+        <h3 class="text-[15px] font-bold text-[#0B2545] mb-3 ml-1" id="todayHeaderLabel">Hoy</h3>
+        <div class="space-y-3" id="todayTxList"></div>
+      </div>
+
+      <!-- DÍAS PASADOS -->
+      <div>
+        <h3 class="text-[15px] font-bold text-[#0B2545] mb-3 ml-1" id="dayMinus1Label">Ayer</h3>
+        <div class="space-y-3">
+          <div class="bg-white rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div class="flex items-start space-x-3.5">
+                <div class="w-10 h-10 rounded-full bg-[#7D88F0] text-white flex items-center justify-center font-semibold text-xs tracking-wider shrink-0 mt-0.5">PO</div>
+                <div>
+                  <h4 class="text-[15px] font-bold text-[#0B2545] leading-tight">Pork spot snc</h4>
+                  <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-[17px] font-normal text-[#0B2545]">-3,00 €</p>
+                <p class="text-[13px] text-slate-600 mt-0.5">8.536,68 €</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2 mt-3 pt-1 text-[13px] text-slate-700">
+              <svg class="w-4 h-4 text-amber-500 stroke-[1.8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <span>Bares y restaurantes</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- BOTONERA OPERATIVA RÁPIDA BBVA -->
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-3">
-        <div class="grid grid-cols-4 gap-2 text-center">
-          <div class="flex flex-col items-center">
-            <div class="w-12 h-12 rounded-full bg-[#EBF3FA] text-bbva-blue flex items-center justify-center text-lg shadow-sm font-bold">
-              ⚡
+      <!-- Hace 3 días -->
+      <div>
+        <h3 class="text-[15px] font-bold text-[#0B2545] mb-3 ml-1" id="dayMinus3Label">-</h3>
+        <div class="space-y-3">
+          <div class="bg-white rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between opacity-95">
+            <div class="flex items-start justify-between">
+              <div class="flex items-start space-x-3.5">
+                <div class="w-10 h-10 rounded-full bg-[#7D88F0] text-white flex items-center justify-center font-semibold text-xs tracking-wider shrink-0 mt-0.5">IN</div>
+                <div>
+                  <h4 class="text-[15px] font-bold text-[#0B2545] leading-tight">In s mercato</h4>
+                  <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-[17px] font-normal text-[#0B2545]">-5,63 €</p>
+                <p class="text-[13px] text-slate-600 mt-0.5">8.539,68 €</p>
+              </div>
             </div>
-            <span class="text-[11px] font-semibold text-slate-700 mt-1.5">Bizum</span>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="w-12 h-12 rounded-full bg-[#EBF3FA] text-bbva-blue flex items-center justify-center text-lg shadow-sm font-bold">
-              ↗️
+            <div class="flex items-center space-x-2 mt-3 pt-1 text-[13px] text-slate-700">
+              <svg class="w-4 h-4 text-sky-500 stroke-[1.8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <span>Alimentación</span>
             </div>
-            <span class="text-[11px] font-semibold text-slate-700 mt-1.5">Transferir</span>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="w-12 h-12 rounded-full bg-[#EBF3FA] text-bbva-blue flex items-center justify-center text-lg shadow-sm font-bold">
-              💳
-            </div>
-            <span class="text-[11px] font-semibold text-slate-700 mt-1.5">Tarjetas</span>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="w-12 h-12 rounded-full bg-[#EBF3FA] text-bbva-blue flex items-center justify-center text-lg shadow-sm font-bold">
-              •••
-            </div>
-            <span class="text-[11px] font-semibold text-slate-700 mt-1.5">Operar</span>
           </div>
         </div>
       </div>
 
-      <!-- LISTA DE MOVIMIENTOS -->
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-4">
-        <div class="flex justify-between items-center mb-3">
-          <h2 class="text-xs font-bold text-slate-600 uppercase tracking-wider">Últimos movimientos</h2>
-          <span class="text-xs text-bbva-blue font-semibold">Buscar</span>
-        </div>
-
-        <div class="divide-y divide-slate-100" id="txList">
-          <!-- Las transacciones se cargan aquí dinámicamente -->
+      <!-- Hace 4 días -->
+      <div>
+        <h3 class="text-[15px] font-bold text-[#0B2545] mb-3 ml-1" id="dayMinus4Label">-</h3>
+        <div class="space-y-3">
+          <div class="bg-white rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between opacity-80">
+            <div class="flex items-start justify-between">
+              <div class="flex items-start space-x-3.5">
+                <div class="w-10 h-10 rounded-full bg-[#7D88F0] text-white flex items-center justify-center font-semibold text-xs tracking-wider shrink-0 mt-0.5">IN</div>
+                <div>
+                  <h4 class="text-[15px] font-bold text-[#0B2545] leading-tight">In s mercato</h4>
+                  <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-[17px] font-normal text-[#0B2545]">-1,99 €</p>
+                <p class="text-[13px] text-slate-600 mt-0.5">8.545,31 €</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- SELLO DE SEGURIDAD BBVA -->
-      <div class="text-center py-2">
-        <p class="text-[10px] text-slate-400 font-medium tracking-wide">BBVA ESPAÑA S.A. • CONEXIÓN CIFRADA TLS 1.3</p>
-      </div>
     </main>
   </div>
 
-  <!-- MODAL DE RECIBO / DETALLE DEL MOVIMIENTO (ESTILO BBVA) -->
-  <div id="receiptModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-end justify-center">
-    <div class="bg-white w-full rounded-t-2xl p-5 shadow-2xl max-w-lg transition-transform transform translate-y-0">
-      
-      <!-- Tirador superior del modal -->
-      <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-4"></div>
-
-      <div class="flex justify-between items-start mb-2">
-        <div class="flex items-center space-x-3">
-          <div class="w-11 h-11 rounded-full bg-[#EBF3FA] text-bbva-blue flex items-center justify-center text-xl font-bold" id="mIcon">
-            🚆
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-slate-900" id="mTitle">Trenitalia</h3>
-            <p class="text-[11px] text-slate-500" id="mTime">Hoy, 12:45</p>
-          </div>
-        </div>
-        <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm font-bold active:scale-95">✕</button>
-      </div>
-
-      <div class="py-4 my-2 border-y border-slate-100 text-center">
-        <span class="text-[11px] text-slate-400 font-medium">Importe de la operación</span>
-        <div class="text-3xl font-black text-slate-900 mt-0.5" id="mAmount">-9,80 €</div>
-        <span class="inline-block mt-1 text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded-full border border-emerald-200">
-          Operación autorizada y liquidada
-        </span>
-      </div>
-
-      <!-- Metadatos de la operación -->
-      <div class="space-y-2.5 text-xs text-slate-600 pt-1">
-        <div class="flex justify-between">
-          <span class="text-slate-400">Tipo de movimiento</span>
-          <span class="font-medium text-slate-800">Pago con tarjeta de débito</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">Comercio / Emisor</span>
-          <span class="font-medium text-slate-800 text-right" id="mOperator">-</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">Terminal POS</span>
-          <span class="font-mono text-slate-800 text-right" id="mTerminal">-</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">Número de referencia</span>
-          <span class="font-mono text-slate-800 text-right" id="mAuth">-</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">Medio empleado</span>
-          <span class="font-medium text-slate-800">Tarjeta Aqua Débito (•••• 4021)</span>
-        </div>
-      </div>
-
-      <button onclick="closeModal()" class="w-full mt-5 bg-bbva-blue hover:bg-bbva-navy active:scale-98 text-white font-bold py-3 rounded-lg text-xs transition">
-        Entendido
+  <!-- ============================================================== -->
+  <!-- VISTA 2: DETALLE BLANCO CON MAPA                               -->
+  <!-- ============================================================== -->
+  <div id="detailView" class="hidden min-h-screen bg-[#F7F9FB] pb-12">
+    <header class="bg-[#F7F9FB] px-5 pt-1.5 pb-2.5 flex items-center justify-between sticky top-0 z-20">
+      <button onclick="closeDetail()" class="flex flex-col items-center text-[#0B2545] active:opacity-60 transition">
+        <svg class="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span class="text-[10px] font-medium mt-0.5">Volver</span>
       </button>
+
+      <h1 class="text-[17px] font-bold text-[#0B2545] tracking-tight">Cuenta *7609</h1>
+
+      <div class="flex items-center space-x-4">
+        <button class="flex flex-col items-center text-[#0B2545]">
+          <div class="w-6 h-6 rounded-full border-[2.2px] border-[#0B2545] flex items-center justify-center"></div>
+          <span class="text-[10px] font-medium mt-0.5">Blue</span>
+        </button>
+        <button class="flex flex-col items-center text-[#0B2545] relative">
+          <div class="relative w-6 h-6 flex flex-col justify-center items-center space-y-1">
+            <span class="w-5 h-[2px] bg-[#0B2545] rounded-full"></span>
+            <span class="w-5 h-[2px] bg-[#0B2545] rounded-full"></span>
+            <span class="w-5 h-[2px] bg-[#0B2545] rounded-full"></span>
+            <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-[#D13232] rounded-full border-2 border-[#F7F9FB]"></span>
+          </div>
+          <span class="text-[10px] font-medium mt-0.5">Menú</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="p-4 space-y-4">
+      <div>
+        <h3 class="text-[15px] font-bold text-[#0B2545] mb-2.5 ml-1" id="mTopDateHeader">Hoy</h3>
+        <div class="bg-white rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between">
+          <div class="flex items-start justify-between">
+            <div>
+              <h4 class="text-[16px] font-bold text-[#0B2545] leading-tight" id="mTitle">-</h4>
+              <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[18px] font-normal text-[#0B2545]" id="mAmount">-</p>
+              <p class="text-[13px] text-slate-600 mt-0.5" id="mRunningBalance">-</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2 mt-4 pt-1 text-[13px] text-slate-700">
+            <svg class="w-4 h-4 text-indigo-500 stroke-[1.8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+            <span>Tren, barco o bus</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAPA CON PIN ROJO -->
+      <div class="relative bg-[#DCEFEF] rounded-3xl h-60 w-full overflow-hidden flex flex-col justify-between p-4 shadow-sm border border-teal-100">
+        <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(#1464A5 1px, transparent 1px); background-size: 16px 16px;"></div>
+        
+        <div class="flex-1 flex items-center justify-center relative">
+          <div class="w-8 h-8 rounded-full bg-[#D13232] text-white flex items-center justify-center shadow-lg border-2 border-white transform -translate-y-2">
+            <div class="w-2.5 h-2.5 bg-white rounded-full"></div>
+          </div>
+          <div class="absolute w-5 h-1.5 bg-black/15 rounded-full blur-[1px] transform translate-y-3"></div>
+        </div>
+
+        <div class="relative z-10 w-full bg-white/95 backdrop-blur-xs py-3 rounded-2xl text-center shadow-sm">
+          <p class="text-sm font-semibold text-[#0B2545]" id="mMapCityName">Pistoia, Italia</p>
+        </div>
+      </div>
+
+      <!-- Leyenda informativa -->
+      <div class="px-1 text-slate-600 space-y-3">
+        <p class="text-xs leading-relaxed flex items-start space-x-1.5">
+          <span class="text-sm font-bold text-slate-400 mt-[-1px]">ⓘ</span>
+          <span>La dirección mostrada es aproximada y puede variar según la localización establecida en el TPV de venta.</span>
+        </p>
+
+        <button class="flex items-center space-x-1.5 text-xs font-bold text-[#0B2545]">
+          <span class="text-sm">ⓘ</span>
+          <span>Más detalle de localización</span>
+        </button>
+      </div>
+
+      <!-- FICHA TÉCNICA -->
+      <div class="bg-white rounded-2xl p-5 shadow-xs border border-slate-100 space-y-4 text-xs">
+        <div class="flex justify-between items-center">
+          <span class="text-slate-500 font-medium">Fecha de la operación</span>
+          <span class="font-bold text-[#0B2545] text-sm" id="mOpDate">-</span>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="text-slate-500 font-medium">PAN</span>
+          <span class="font-bold text-[#0B2545] text-sm">4603-3210-5933-2596</span>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="text-slate-500 font-medium">Establecimiento</span>
+          <span class="font-bold text-[#0B2545] text-sm uppercase" id="mEstablishment">-</span>
+        </div>
+
+        <div class="flex justify-between items-start">
+          <span class="text-slate-500 font-medium">Dirección del establecimiento</span>
+          <span class="font-bold text-[#0B2545] text-sm text-right uppercase" id="mAddress">-</span>
+        </div>
+
+        <div class="flex justify-between items-start">
+          <span class="text-slate-500 font-medium">Tipo de tarjeta</span>
+          <span class="font-bold text-[#0B2545] text-sm text-right uppercase">TARJETA JOVEN AHORA<br>BBVA</span>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="text-slate-500 font-medium">Importe comisión</span>
+          <span class="font-bold text-[#0B2545] text-sm">0,00 €</span>
+        </div>
+
+        <div class="flex justify-between items-start pt-1 border-t border-slate-100" id="mIdRow">
+          <span class="text-slate-500 font-medium">ID del movimiento</span>
+          <span class="font-mono text-slate-700 text-[11px] text-right break-all max-w-[200px]" id="mIdMovement">-</span>
+        </div>
+
+        <div class="pt-2 text-center">
+          <button class="text-xs font-bold text-[#0B2545] flex items-center justify-center w-full space-x-1">
+            <span>Mostrar menos</span>
+            <span>∧</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- NOTA -->
+      <div class="bg-white rounded-2xl p-4 shadow-xs border border-slate-100">
+        <div class="flex justify-between items-center">
+          <h4 class="text-sm font-bold text-[#0B2545]">Nota</h4>
+          <svg class="w-4 h-4 text-blue-600 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+          </svg>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">Añade aquí tu nota</p>
+      </div>
+
+      <!-- AÑADIR ADJUNTO -->
+      <div class="bg-white rounded-2xl p-4 shadow-xs border border-slate-100 flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center">
+          <svg class="w-5 h-5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+          </svg>
+        </div>
+        <span class="text-sm font-bold text-[#0B2545]">Añadir un adjunto</span>
+      </div>
+
+      <!-- BIZUM -->
+      <div class="bg-white rounded-2xl p-4 shadow-xs border border-slate-100 flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-black text-sm">
+          %
+        </div>
+        <span class="text-sm font-bold text-[#0B2545]">Dividir este gasto con Bizum</span>
+      </div>
     </div>
   </div>
 
@@ -191,124 +384,166 @@
     if (tg) {
       tg.ready();
       tg.expand();
-      // Cabecera de Telegram con el azul marino de BBVA
-      if (tg.setHeaderColor) tg.setHeaderColor('#043263');
-      if (tg.initDataUnsafe?.user?.first_name) {
-        document.getElementById('userName').innerText = tg.initDataUnsafe.user.first_name;
-        document.getElementById('userAvatar').innerText = tg.initDataUnsafe.user.first_name[0].toUpperCase();
+      if (typeof tg.disableVerticalSwipes === 'function') {
+        tg.disableVerticalSwipes();
       }
+      if (tg.setHeaderColor) tg.setHeaderColor('#F7F9FB');
+      if (tg.setBackgroundColor) tg.setBackgroundColor('#F7F9FB');
     }
 
-    const INITIAL_BALANCE = 1450.00;
+    const MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
-    // Movimientos previos habituales de una cuenta BBVA
-    const STATIC_TXS = [
-      { name: "MERCADONA, S.A.", icon: "🛒", time: "Ayer", amount: "-34,20 €", category: "Alimentación" },
-      { name: "RESTAURANTE EL CORTE", icon: "🍽️", time: "04 Oct", amount: "-18,50 €", category: "Restauración" },
-      { name: "NÓMINA DE EMPRESA", icon: "💼", time: "01 Oct", amount: "+1.250,00 €", category: "Ingreso", isIncome: true }
-    ];
+    function formatDateSpanish(dateObj) {
+      return `${dateObj.getDate()} de ${MONTHS[dateObj.getMonth()]} de ${dateObj.getFullYear()}`;
+    }
 
+    function formatDateShort(dateObj) {
+      const d = dateObj.getDate().toString().padStart(2, '0');
+      const m = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+      return `${d}/${m}/${dateObj.getFullYear()}`;
+    }
+
+    // Fechas dinámicas
+    const today = new Date();
+    document.getElementById('todayHeaderLabel').innerText = formatDateSpanish(today);
+
+    const d1 = new Date(today.getTime() - 1 * 86400000);
+    document.getElementById('dayMinus1Label').innerText = formatDateSpanish(d1);
+
+    const d3 = new Date(today.getTime() - 3 * 86400000);
+    document.getElementById('dayMinus3Label').innerText = formatDateSpanish(d3);
+
+    const d4 = new Date(today.getTime() - 4 * 86400000);
+    document.getElementById('dayMinus4Label').innerText = formatDateSpanish(d4);
+
+    const TICKET_DEFINITIONS = {
+      bus: {
+        type: 'bus',
+        name: 'COMPRA PAISES UME AMT AZIENDA MOBILIT...',
+        fullName: 'COMPRA PAISES UME AMT AZIENDA MOBILITA E.',
+        amount: 2.00,
+        establishment: 'AMT AZIENDA MOBILITA E',
+        address: 'GENOVA,<br>ITALIA,',
+        city: 'Génova, Italia',
+        movementId: '00492852BH136000087754202609212026 092120260921G'
+      },
+      tren: {
+        type: 'tren',
+        name: 'Trenitalia - pt wl',
+        fullName: 'Trenitalia - pt wl',
+        amount: 3.00,
+        establishment: 'TRENITALIA - PT WL',
+        address: 'PISTOIA,<br>ITALIA,',
+        city: 'Pistoia, Italia',
+        movementId: '49018274TR88210009123847291048291 981290318239T'
+      }
+    };
+
+    // Lectura de la lista de compras desde la query string
     const urlParams = new URLSearchParams(window.location.search);
-    const isReset = urlParams.get('reset');
-    const newTxParam = urlParams.get('new_tx');
+    const sessionId = urlParams.get('session_id') || 'default_session';
+    const txsParam = urlParams.get('txs');
 
-    if (isReset === 'true') {
-      localStorage.removeItem('demo_recent_txs');
-      document.getElementById('mainBankView').classList.add('hidden');
-      document.getElementById('resetView').classList.remove('hidden');
-    } else {
-      let recentTxs = JSON.parse(localStorage.getItem('demo_recent_txs') || '[]');
+    const storedSession = localStorage.getItem('bbva_active_session');
+    if (storedSession !== sessionId) {
+      localStorage.setItem('bbva_active_session', sessionId);
+      localStorage.removeItem('bbva_session_txs');
+    }
 
-      if (newTxParam) {
-        try {
-          const parsedTx = JSON.parse(decodeURIComponent(newTxParam));
-          if (!recentTxs.some(t => t.id === parsedTx.id)) {
-            recentTxs.unshift(parsedTx);
-            localStorage.setItem('demo_recent_txs', JSON.stringify(recentTxs));
-          }
-        } catch (e) {
-          console.error("Error al procesar movimiento:", e);
+    let activeTxs = [];
+
+    if (txsParam) {
+      const items = txsParam.split(',');
+      items.forEach((item, index) => {
+        const [ticketType, timestampSec] = item.split(':');
+        if (TICKET_DEFINITIONS[ticketType]) {
+          activeTxs.push({
+            id: `TX-${timestampSec}-${index}`,
+            ...TICKET_DEFINITIONS[ticketType],
+            tx_timestamp_ms: parseInt(timestampSec) * 1000
+          });
         }
-      }
-
-      renderDashboard(recentTxs);
+      });
+      localStorage.setItem('bbva_session_txs', JSON.stringify(activeTxs));
+    } else {
+      activeTxs = JSON.parse(localStorage.getItem('bbva_session_txs') || '[]');
     }
 
-    function renderDashboard(recentTxs) {
-      const container = document.getElementById('txList');
-      container.innerHTML = '';
+    // Renderizado en la lista principal
+    const BASE_BALANCE = 8536.68;
+    const todaySection = document.getElementById('todaySection');
+    const container = document.getElementById('todayTxList');
 
-      let totalSpent = recentTxs.reduce((sum, item) => sum + parseFloat(item.amount), 0);
-      let currentBalance = INITIAL_BALANCE - totalSpent;
-      document.getElementById('balanceDisplay').innerText = 
-        currentBalance.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    if (activeTxs.length > 0) {
+      todaySection.classList.remove('hidden');
 
-      // 1. Inyectar compras recién generadas por el bot
-      recentTxs.forEach((tx) => {
-        // Fijar la hora a hace 15 minutos exactos
-        const time15MinAgo = new Date(Date.now() - 15 * 60 * 1000);
-        const timeStr = `Hoy, ${time15MinAgo.getHours().toString().padStart(2, '0')}:${time15MinAgo.getMinutes().toString().padStart(2, '0')}`;
+      const reversedTxs = [...activeTxs].reverse();
+      let running = BASE_BALANCE;
+
+      reversedTxs.forEach((tx) => {
+        running -= parseFloat(tx.amount);
+
+        const txDate = new Date(tx.tx_timestamp_ms);
+        const hours = txDate.getHours().toString().padStart(2, '0');
+        const minutes = txDate.getMinutes().toString().padStart(2, '0');
+        const timeStr = `${hours}:${minutes}`;
+
+        const initials = tx.type === 'bus' ? 'AM' : 'TR';
 
         const row = document.createElement('div');
-        row.className = "flex items-center justify-between py-3 cursor-pointer active:bg-slate-50 transition -mx-2 px-2 rounded-lg";
-        row.onclick = () => openModal(tx, timeStr);
-        row.innerHTML = `
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full bg-[#EBF3FA] text-bbva-blue flex items-center justify-center text-lg font-bold">
-              ${tx.icon}
-            </div>
-            <div>
-              <p class="text-xs font-bold text-slate-900 uppercase tracking-tight">${tx.name}</p>
-              <p class="text-[11px] text-slate-400 mt-0.5">${timeStr} • <span class="text-bbva-blue font-medium">Ver recibo</span></p>
-            </div>
-          </div>
-          <div class="text-right">
-            <p class="text-xs font-black text-slate-900">-${parseFloat(tx.amount).toFixed(2).replace('.', ',')} €</p>
-            <span class="text-[10px] text-slate-400">Liquidado</span>
-          </div>
-        `;
-        container.appendChild(row);
-      });
+        row.className = "bg-white rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between cursor-pointer active:scale-[0.99] transition";
+        row.onclick = () => openUnifiedDetail(tx, timeStr, running, txDate);
 
-      // 2. Inyectar las transacciones de fondo (estáticas)
-      STATIC_TXS.forEach(tx => {
-        const row = document.createElement('div');
-        row.className = "flex items-center justify-between py-3 -mx-2 px-2 opacity-80";
         row.innerHTML = `
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-base">
-              ${tx.icon}
+          <div class="flex items-start justify-between">
+            <div class="flex items-start space-x-3.5">
+              <div class="w-10 h-10 rounded-full bg-[#7D88F0] text-white flex items-center justify-center font-semibold text-xs tracking-wider shrink-0 mt-0.5">
+                ${initials}
+              </div>
+              <div>
+                <h4 class="text-[15px] font-bold text-[#0B2545] leading-tight">${tx.name}</h4>
+                <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta • ${timeStr}</p>
+              </div>
             </div>
-            <div>
-              <p class="text-xs font-semibold text-slate-800 uppercase tracking-tight">${tx.name}</p>
-              <p class="text-[11px] text-slate-400 mt-0.5">${tx.time} • ${tx.category}</p>
+            <div class="text-right">
+              <p class="text-[17px] font-normal text-[#0B2545]">-${parseFloat(tx.amount).toFixed(2).replace('.', ',')} €</p>
+              <p class="text-[13px] text-slate-600 mt-0.5">${running.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
             </div>
           </div>
-          <div class="text-right">
-            <p class="text-xs font-bold ${tx.isIncome ? 'text-emerald-600' : 'text-slate-800'}">${tx.amount}</p>
-            <span class="text-[10px] text-slate-400">Contabilizado</span>
+          <div class="flex items-center space-x-2 mt-3 pt-1 text-[13px] text-slate-700">
+            <svg class="w-4 h-4 text-indigo-500 stroke-[1.8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+            <span>Tren, barco o bus</span>
           </div>
         `;
         container.appendChild(row);
       });
     }
 
-    function openModal(tx, timeStr) {
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+    function openUnifiedDetail(tx, timeStr, balanceValue, txDate) {
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
 
-      document.getElementById('mIcon').innerText = tx.icon;
-      document.getElementById('mTitle').innerText = tx.name;
-      document.getElementById('mTime').innerText = `${timeStr} (hace 15 min)`;
+      document.getElementById('mTopDateHeader').innerText = `${formatDateSpanish(txDate)} ${timeStr}`;
+      document.getElementById('mOpDate').innerText = formatDateShort(txDate);
       document.getElementById('mAmount').innerText = `-${parseFloat(tx.amount).toFixed(2).replace('.', ',')} €`;
-      document.getElementById('mOperator').innerText = tx.operator;
-      document.getElementById('mTerminal').innerText = tx.terminal;
-      document.getElementById('mAuth').innerText = tx.id;
+      document.getElementById('mRunningBalance').innerText = `${balanceValue.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
 
-      document.getElementById('receiptModal').classList.remove('hidden');
+      document.getElementById('mTitle').innerText = tx.fullName;
+      document.getElementById('mEstablishment').innerText = tx.establishment;
+      document.getElementById('mAddress').innerHTML = tx.address;
+      document.getElementById('mMapCityName').innerText = tx.city;
+      document.getElementById('mIdMovement').innerText = tx.movementId;
+
+      document.getElementById('mainBankView').classList.add('hidden');
+      document.getElementById('detailView').classList.remove('hidden');
+      window.scrollTo(0, 0);
     }
 
-    function closeModal() {
-      document.getElementById('receiptModal').classList.add('hidden');
+    function closeDetail() {
+      document.getElementById('detailView').classList.add('hidden');
+      document.getElementById('mainBankView').classList.remove('hidden');
+      window.scrollTo(0, 0);
     }
   </script>
 </body>
