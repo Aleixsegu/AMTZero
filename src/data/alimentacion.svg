@@ -2,10 +2,9 @@
   <!-- Outer Bag Rectangle -->
   <rect x="5.5" y="8" width="13" height="13" rx="0.8" />
   
-  <!-- Handle (Loop at top, right leg extending into bag) -->
-  <path d="M 9.5 8 V 5.5 C 9.5 3.8 14.5 3.8 14.5 5.5 V 12.5" />
+  <!-- Handle (Loop at top, left leg extending into bag connecting above dot, right leg extending into bag) -->
+  <path d="M 9.5 10.2 V 5.5 C 9.5 3.8 14.5 3.8 14.5 5.5 V 12.5" />
   
-  <!-- Left Interior Stacked Dots -->
-  <circle cx="9.5" cy="10.5" r="0.8" fill="#38A5DB" stroke="none" />
+  <!-- Single Dot below left handle stroke -->
   <circle cx="9.5" cy="13" r="0.8" fill="#38A5DB" stroke="none" />
 </svg>
