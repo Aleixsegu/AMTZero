@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <!-- Top bar with corrected diagonal slant (\) contouring around red dot -->
+  <path d="M 4 6.8 H 13.2 L 15.2 9.2 H 4 Z" fill="#0B2545" />
+  
+  <!-- Red notification circle -->
+  <circle cx="18.5" cy="5.5" r="3.2" fill="#D13232" />
+  
+  <!-- Middle bar with dot on left and flat square ends -->
+  <circle cx="4.5" cy="13" r="1.1" fill="#0B2545" />
+  <line x1="8" y1="13" x2="19" y2="13" stroke="#0B2545" stroke-width="2.4" stroke-linecap="butt" />
+  
+  <!-- Bottom bar with flat square ends -->
+  <line x1="4" y1="18" x2="19" y2="18" stroke="#0B2545" stroke-width="2.4" stroke-linecap="butt" />
+</svg>

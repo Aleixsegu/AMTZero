@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#C69214" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Lowered & Tilted Umbrella Assembly (Canopy, Ribs & Pole) -->
+  <g transform="translate(0, 1.8) rotate(-16 11.5 10.5)">
+    <!-- Symmetric Semicircle Canopy -->
+    <path d="M 4.5 10.5 A 7 7 0 0 1 18.5 10.5 Z" />
+    
+    <!-- Symmetric Canopy Ribs -->
+    <path d="M 11.5 3.5 Q 9 7 8 10.5" />
+    <path d="M 11.5 3.5 Q 14 7 15 10.5" />
+    
+    <!-- Umbrella Pole -->
+    <line x1="11.5" y1="10.5" x2="11.5" y2="17.5" />
+  </g>
+  
+  <!-- Beach Lounger Seat & Backrest -->
+  <path d="M 6 18.5 L 16 18.5 L 19.5 14.5" />
+  
+  <!-- Lounger Support Legs -->
+  <line x1="8" y1="18.5" x2="7" y2="21.5" />
+  <line x1="14" y1="18.5" x2="15" y2="21.5" />
+  
+  <!-- Bottom-left Dot Detail -->
+  <circle cx="3.2" cy="18.5" r="0.9" fill="#C69214" stroke="none" />
+</svg>

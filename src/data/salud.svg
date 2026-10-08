@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#BD2848" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outer Ring -->
+  <circle cx="12" cy="12" r="9.2" />
+  
+  <!-- Centered Heart -->
+  <path d="M 12 16.2 L 7.5 11.5 C 6.2 10.2 6.5 7.8 8.4 7.2 C 10 6.7 11.4 7.6 12 8.8 C 12.6 7.6 14 6.7 15.6 7.2 C 17.5 7.8 17.8 10.2 16.5 11.5 Z" />
+</svg>
