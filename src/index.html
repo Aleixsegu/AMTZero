@@ -32,39 +32,39 @@
     }
   </style>
 </head>
-<body class="text-slate-800 antialiased min-h-screen select-none">
+<body class="bg-[#F7F9FB] text-slate-800 antialiased min-h-screen select-none">
 
   <!-- ========================================== -->
   <!-- VISTA 1: LISTADO PRINCIPAL BBVA           -->
   <!-- ========================================== -->
-  <div id="mainBankView" class="pb-12">
+  <div id="mainBankView" class="bg-[#F7F9FB] pb-12">
     <!-- Header Fijo Superior -->
-    <header class="bg-[#F7F9FB] px-4 pt-3 pb-3 flex items-center justify-between sticky top-0 z-20">
+    <header class="relative bg-[#F7F9FB] px-4 pt-2.5 pb-2.5 flex items-center justify-between sticky top-0 z-20 border-b border-slate-100/80">
       <!-- Volver -->
-      <button class="flex flex-col items-center text-[#00175B] active:opacity-60 transition">
-        <div class="w-[42px] h-[42px] rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-center">
+      <button class="flex flex-col items-center text-[#00175B] active:opacity-60 transition z-10">
+        <div class="w-[38px] h-[38px] rounded-full bg-white shadow-[0_2px_5px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-center">
           <img src="/data/volver.svg" class="w-4 h-4 object-contain" alt="Volver" />
         </div>
-        <span class="text-[12px] font-semibold mt-1.5 text-center">Volver</span>
+        <span class="text-[11px] font-semibold mt-1 text-center">Volver</span>
       </button>
 
-      <!-- Titulo Cuenta Centrado -->
-      <h1 class="text-[18px] font-bold text-[#00175B] tracking-tight text-center flex-1 mx-2">Cuenta *7609</h1>
+      <!-- Titulo Cuenta 100% Centrado Matemáticamente -->
+      <h1 class="absolute left-1/2 transform -translate-x-1/2 text-[17px] font-bold text-[#00175B] tracking-tight text-center pointer-events-none">Cuenta *7609</h1>
 
-      <div class="flex items-center space-x-3">
+      <div class="flex items-center space-x-3 z-10">
         <!-- Blue -->
         <button class="flex flex-col items-center text-[#00175B] active:opacity-60 transition">
-          <div class="w-[42px] h-[42px] rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-center">
+          <div class="w-[38px] h-[38px] rounded-full bg-white shadow-[0_2px_5px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-center">
             <img src="/data/blue.svg" class="w-5 h-5 object-contain" alt="Blue" />
           </div>
-          <span class="text-[12px] font-semibold mt-1.5 text-center">Blue</span>
+          <span class="text-[11px] font-semibold mt-1 text-center">Blue</span>
         </button>
         <!-- Menú con punto rojo -->
         <button class="flex flex-col items-center text-[#00175B] relative active:opacity-60 transition">
-          <div class="relative w-[42px] h-[42px] rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-center">
+          <div class="relative w-[38px] h-[38px] rounded-full bg-white shadow-[0_2px_5px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-center">
             <img src="/data/menu.svg" class="w-5 h-5 object-contain" alt="Menú" />
           </div>
-          <span class="text-[12px] font-semibold mt-1.5 text-center">Menú</span>
+          <span class="text-[11px] font-semibold mt-1 text-center">Menú</span>
         </button>
       </div>
     </header>
@@ -85,7 +85,7 @@
           <div class="w-[62px] h-[62px] bg-white rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-center">
             <img src="/data/transferencias.svg" class="w-9 h-9 object-contain" alt="Transferencias" />
           </div>
-          <span class="text-[12px] leading-tight text-[#00175B] font-semibold mt-2.5 text-center max-w-[95px]">Transferencias /<br>Traspasos</span>
+          <span class="text-[12px] leading-tight text-[#00175B] font-semibold mt-2.5 text-center"><span class="whitespace-nowrap">Transferencias /</span><br>Traspasos</span>
         </div>
 
         <!-- Bizum -->
@@ -107,68 +107,48 @@
     </section>
 
     <!-- Título y Pestañas -->
-    <section class="px-5 pt-3">
-      <h2 class="font-bbva-serif text-[28px] text-[#0B2545] font-bold tracking-tight">Últimos movimientos</h2>
-      <div class="flex space-x-6 mt-4 text-[15px] font-bold text-[#0B2545]">
+    <section class="px-5 pt-2">
+      <h2 class="font-bbva-serif text-[22px] text-[#00175B] font-bold tracking-tight">Últimos movimientos</h2>
+      <div class="flex space-x-6 mt-3 text-[14px] font-bold text-[#00175B]">
         <div class="relative pb-1.5 cursor-pointer">
           <span>Fecha</span>
-          <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#0B2545] rounded-full"></span>
+          <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#00175B] rounded-full"></span>
         </div>
-        <div class="text-[#0B2545] pb-1.5 opacity-90 cursor-pointer">Categoría</div>
-        <div class="text-[#0B2545] pb-1.5 opacity-90 cursor-pointer">Marcas</div>
+        <div class="text-[#00175B] pb-1.5 opacity-90 cursor-pointer">Categoría</div>
+        <div class="text-[#00175B] pb-1.5 opacity-90 cursor-pointer">Marcas</div>
       </div>
     </section>
 
     <!-- Feed de Transacciones -->
-    <main class="px-4 pt-5 space-y-6">
+    <main class="px-4 pt-4 space-y-5">
 
-      <!-- DÍA DE HOY (Trenitalia y Compras acumuladas) -->
-      <div id="todaySection">
-        <h3 class="text-[15px] font-bold text-[#0B2545] mb-3 ml-1" id="todayHeaderLabel">21 de septiembre de 2026</h3>
-        <div class="space-y-3" id="todayTxList">
-          <div onclick="openDefaultTrenitalia()" class="bg-white rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between cursor-pointer active:scale-[0.99] transition">
-            <div class="flex items-start justify-between">
-              <div class="flex items-start space-x-3.5">
-                <div class="w-10 h-10 rounded-full bg-[#7D88F0] text-white flex items-center justify-center font-semibold text-xs tracking-wider shrink-0 mt-0.5">TR</div>
-                <div>
-                  <h4 class="text-[15px] font-bold text-[#0B2545] leading-tight">Trenitalia - pt wl</h4>
-                  <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta</p>
-                </div>
-              </div>
-              <div class="text-right">
-                <p class="text-[17px] font-normal text-[#0B2545]">-3,00 €</p>
-                <p class="text-[13px] text-slate-600 mt-0.5">9.113,87 €</p>
-              </div>
-            </div>
-            <div class="flex items-center space-x-2 mt-3 pt-1 text-[13px] text-slate-700">
-              <img src="/data/transporte.svg" class="w-4 h-4 object-contain" alt="Tren, barco o bus" />
-              <span>Tren, barco o bus</span>
-            </div>
-          </div>
-        </div>
+      <!-- DÍA DE HOY (Compras acumuladas del bot) -->
+      <div id="todaySection" class="hidden">
+        <h3 class="text-[14px] font-bold text-[#00175B] mb-2.5 ml-1" id="todayHeaderLabel">Hoy</h3>
+        <div class="space-y-2.5" id="todayTxList"></div>
       </div>
 
       <!-- DÍAS PASADOS -->
       <div>
-        <h3 class="text-[15px] font-bold text-[#0B2545] mb-3 ml-1" id="dayMinus1Label">Ayer</h3>
-        <div class="space-y-3">
-          <div class="bg-white rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between">
-            <div class="flex items-start justify-between">
-              <div class="flex items-start space-x-3.5">
-                <div class="w-10 h-10 rounded-full bg-[#7D88F0] text-white flex items-center justify-center font-semibold text-xs tracking-wider shrink-0 mt-0.5">PO</div>
-                <div>
-                  <h4 class="text-[15px] font-bold text-[#0B2545] leading-tight">Pork spot snc</h4>
-                  <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta</p>
-                </div>
+        <h3 class="text-[14px] font-bold text-[#00175B] mb-2.5 ml-1" id="dayMinus1Label">Ayer</h3>
+        <div class="space-y-2.5">
+          <div onclick="openDefaultTrenitalia()" class="bg-white rounded-3xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100/60 cursor-pointer active:scale-[0.99] transition space-y-2.5">
+            <div class="flex items-center justify-between min-w-0">
+              <div class="flex items-center space-x-3.5 min-w-0 flex-1 pr-2">
+                <div class="w-10 h-10 rounded-full bg-[#93A0FF] text-[#00175B] flex items-center justify-center font-bold text-xs tracking-wider shrink-0">PO</div>
+                <h4 class="text-[17px] font-bold text-[#00175B] leading-snug truncate -mt-1">Pork spot snc</h4>
               </div>
-              <div class="text-right">
-                <p class="text-[17px] font-normal text-[#0B2545]">-3,00 €</p>
-                <p class="text-[13px] text-slate-600 mt-0.5">8.536,68 €</p>
+              <div class="shrink-0 text-right whitespace-nowrap pl-1">
+                <p class="text-[19px] font-normal text-[#00175B] whitespace-nowrap">-3,00 €</p>
               </div>
             </div>
-            <div class="flex items-center space-x-2 mt-3 pt-1 text-[13px] text-slate-700">
-              <img src="/data/bares.svg" class="w-4 h-4 object-contain" alt="Bares y restaurantes" />
-              <span>Bares y restaurantes</span>
+            <div class="flex items-center justify-between pl-[54px] min-w-0 -mt-0.5">
+              <p class="text-[14px] text-[#00175B] font-normal truncate min-w-0 flex-1 pr-2">Pago con tarjeta</p>
+              <p class="text-[14px] text-[#00175B] font-normal shrink-0 text-right whitespace-nowrap pl-1">8.536,68 €</p>
+            </div>
+            <div class="flex items-center space-x-2.5 pl-[54px] pt-0.5 text-[14px] text-[#00175B]">
+              <img src="/data/bares.svg" class="w-6 h-6 object-contain shrink-0" alt="Bares y restaurantes" />
+              <span class="truncate">Bares y restaurantes</span>
             </div>
           </div>
         </div>
@@ -176,25 +156,25 @@
 
       <!-- Hace 3 días -->
       <div>
-        <h3 class="text-[15px] font-bold text-[#0B2545] mb-3 ml-1" id="dayMinus3Label">-</h3>
-        <div class="space-y-3">
-          <div class="bg-white rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between opacity-95">
-            <div class="flex items-start justify-between">
-              <div class="flex items-start space-x-3.5">
-                <div class="w-10 h-10 rounded-full bg-[#7D88F0] text-white flex items-center justify-center font-semibold text-xs tracking-wider shrink-0 mt-0.5">IN</div>
-                <div>
-                  <h4 class="text-[15px] font-bold text-[#0B2545] leading-tight">In s mercato</h4>
-                  <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta</p>
-                </div>
+        <h3 class="text-[14px] font-bold text-[#00175B] mb-2.5 ml-1" id="dayMinus3Label">-</h3>
+        <div class="space-y-2.5">
+          <div onclick="openDefaultTrenitalia()" class="bg-white rounded-3xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100/60 opacity-95 cursor-pointer active:scale-[0.99] transition space-y-2.5">
+            <div class="flex items-center justify-between min-w-0">
+              <div class="flex items-center space-x-3.5 min-w-0 flex-1 pr-2">
+                <div class="w-10 h-10 rounded-full bg-[#93A0FF] text-[#00175B] flex items-center justify-center font-bold text-xs tracking-wider shrink-0">IN</div>
+                <h4 class="text-[17px] font-bold text-[#00175B] leading-snug truncate -mt-1">In s mercato</h4>
               </div>
-              <div class="text-right">
-                <p class="text-[17px] font-normal text-[#0B2545]">-5,63 €</p>
-                <p class="text-[13px] text-slate-600 mt-0.5">8.539,68 €</p>
+              <div class="shrink-0 text-right whitespace-nowrap pl-1">
+                <p class="text-[19px] font-normal text-[#00175B] whitespace-nowrap">-5,63 €</p>
               </div>
             </div>
-            <div class="flex items-center space-x-2 mt-3 pt-1 text-[13px] text-slate-700">
-              <img src="/data/alimentacion.svg" class="w-4 h-4 object-contain" alt="Alimentación" />
-              <span>Alimentación</span>
+            <div class="flex items-center justify-between pl-[54px] min-w-0 -mt-0.5">
+              <p class="text-[14px] text-[#00175B] font-normal truncate min-w-0 flex-1 pr-2">Pago con tarjeta</p>
+              <p class="text-[14px] text-[#00175B] font-normal shrink-0 text-right whitespace-nowrap pl-1">8.539,68 €</p>
+            </div>
+            <div class="flex items-center space-x-2.5 pl-[54px] pt-0.5 text-[14px] text-[#00175B]">
+              <img src="/data/alimentacion.svg" class="w-6 h-6 object-contain shrink-0" alt="Alimentación" />
+              <span class="truncate">Alimentación</span>
             </div>
           </div>
         </div>
@@ -202,21 +182,25 @@
 
       <!-- Hace 4 días -->
       <div>
-        <h3 class="text-[15px] font-bold text-[#0B2545] mb-3 ml-1" id="dayMinus4Label">-</h3>
-        <div class="space-y-3">
-          <div class="bg-white rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between opacity-80">
-            <div class="flex items-start justify-between">
-              <div class="flex items-start space-x-3.5">
-                <div class="w-10 h-10 rounded-full bg-[#7D88F0] text-white flex items-center justify-center font-semibold text-xs tracking-wider shrink-0 mt-0.5">IN</div>
-                <div>
-                  <h4 class="text-[15px] font-bold text-[#0B2545] leading-tight">In s mercato</h4>
-                  <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta</p>
-                </div>
+        <h3 class="text-[14px] font-bold text-[#00175B] mb-2.5 ml-1" id="dayMinus4Label">-</h3>
+        <div class="space-y-2.5">
+          <div onclick="openDefaultTrenitalia()" class="bg-white rounded-3xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100/60 opacity-80 cursor-pointer active:scale-[0.99] transition space-y-2.5">
+            <div class="flex items-center justify-between min-w-0">
+              <div class="flex items-center space-x-3.5 min-w-0 flex-1 pr-2">
+                <div class="w-10 h-10 rounded-full bg-[#93A0FF] text-[#00175B] flex items-center justify-center font-bold text-xs tracking-wider shrink-0">IN</div>
+                <h4 class="text-[17px] font-bold text-[#00175B] leading-snug truncate -mt-1">In s mercato</h4>
               </div>
-              <div class="text-right">
-                <p class="text-[17px] font-normal text-[#0B2545]">-1,99 €</p>
-                <p class="text-[13px] text-slate-600 mt-0.5">8.545,31 €</p>
+              <div class="shrink-0 text-right whitespace-nowrap pl-1">
+                <p class="text-[19px] font-normal text-[#00175B] whitespace-nowrap">-1,99 €</p>
               </div>
+            </div>
+            <div class="flex items-center justify-between pl-[54px] min-w-0 -mt-0.5">
+              <p class="text-[14px] text-[#00175B] font-normal truncate min-w-0 flex-1 pr-2">Pago con tarjeta</p>
+              <p class="text-[14px] text-[#00175B] font-normal shrink-0 text-right whitespace-nowrap pl-1">8.545,31 €</p>
+            </div>
+            <div class="flex items-center space-x-2.5 pl-[54px] pt-0.5 text-[14px] text-[#00175B]">
+              <img src="/data/alimentacion.svg" class="w-6 h-6 object-contain shrink-0" alt="Alimentación" />
+              <span class="truncate">Alimentación</span>
             </div>
           </div>
         </div>
@@ -228,32 +212,34 @@
   <!-- ============================================================== -->
   <!-- VISTA 2: DETALLE BLANCO CON MAPA                               -->
   <!-- ============================================================== -->
-  <div id="detailView" class="hidden min-h-screen bg-[#F7F9FB] pb-12">
+  <div id="detailView" class="hidden min-h-screen bg-white pb-12">
     <!-- Header Fijo Superior (Igual a la pantalla principal) -->
-    <header class="bg-[#F7F9FB] px-5 pt-2 pb-2.5 flex items-center justify-between sticky top-0 z-20">
-      <button onclick="closeDetail()" class="flex flex-col items-center text-[#0B2545] active:opacity-60 transition">
-        <div class="w-[34px] h-[34px] rounded-full bg-white border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex items-center justify-center">
+    <header class="relative bg-[#F7F9FB] px-4 pt-2.5 pb-2.5 flex items-center justify-between sticky top-0 z-20 border-b border-slate-100/80">
+      <!-- Volver -->
+      <button onclick="closeDetail()" class="flex flex-col items-center text-[#00175B] active:opacity-60 transition z-10">
+        <div class="w-[38px] h-[38px] rounded-full bg-white shadow-[0_2px_5px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-center">
           <img src="/data/volver.svg" class="w-4 h-4 object-contain" alt="Volver" />
         </div>
-        <span class="text-[10px] font-medium mt-1">Volver</span>
+        <span class="text-[11px] font-semibold mt-1 text-center">Volver</span>
       </button>
 
-      <h1 class="text-[17px] font-bold text-[#0B2545] tracking-tight">Cuenta *7609</h1>
+      <!-- Titulo Cuenta 100% Centrado Matemáticamente -->
+      <h1 class="absolute left-1/2 transform -translate-x-1/2 text-[17px] font-bold text-[#00175B] tracking-tight text-center pointer-events-none">Cuenta *7609</h1>
 
-      <div class="flex items-center space-x-3.5">
+      <div class="flex items-center space-x-3 z-10">
         <!-- Blue -->
-        <button class="flex flex-col items-center text-[#0B2545] active:opacity-60 transition">
-          <div class="w-[34px] h-[34px] rounded-full bg-white border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex items-center justify-center">
+        <button class="flex flex-col items-center text-[#00175B] active:opacity-60 transition">
+          <div class="w-[38px] h-[38px] rounded-full bg-white shadow-[0_2px_5px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-center">
             <img src="/data/blue.svg" class="w-5 h-5 object-contain" alt="Blue" />
           </div>
-          <span class="text-[10px] font-medium mt-1">Blue</span>
+          <span class="text-[11px] font-semibold mt-1 text-center">Blue</span>
         </button>
         <!-- Menú con punto rojo -->
-        <button class="flex flex-col items-center text-[#0B2545] relative active:opacity-60 transition">
-          <div class="relative w-[34px] h-[34px] rounded-full bg-white border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex items-center justify-center">
+        <button class="flex flex-col items-center text-[#00175B] relative active:opacity-60 transition">
+          <div class="relative w-[38px] h-[38px] rounded-full bg-white shadow-[0_2px_5px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-center">
             <img src="/data/menu.svg" class="w-5 h-5 object-contain" alt="Menú" />
           </div>
-          <span class="text-[10px] font-medium mt-1">Menú</span>
+          <span class="text-[11px] font-semibold mt-1 text-center">Menú</span>
         </button>
       </div>
     </header>
@@ -261,156 +247,189 @@
     <div class="p-4 space-y-4">
       <!-- FECHA SUPERIOR -->
       <div>
-        <h3 class="text-[15px] font-bold text-[#0B2545] mb-2.5 ml-1" id="mTopDateHeader">21 de septiembre de 2026</h3>
+        <h3 class="text-[15px] font-bold text-[#00175B] mb-2.5 ml-1" id="mTopDateHeader">21 de septiembre de 2026</h3>
         
-        <!-- Tarjeta de Detalle del Pago -->
-        <div class="bg-white rounded-3xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between">
-          <div class="flex items-start justify-between">
-            <div>
-              <h4 class="text-[16px] font-bold text-[#0B2545] leading-tight" id="mTitle">Trenitalia - pt wl</h4>
-              <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta</p>
+        <!-- Tarjeta de Detalle del Pago (Con amplio margen interior) -->
+        <div class="bg-[#F7F9FB] rounded-3xl p-5.5 px-6 border border-slate-100/60 flex flex-col justify-between">
+          <div class="flex items-start justify-between min-w-0">
+            <div class="min-w-0 flex-1 pr-2">
+              <h4 class="text-[18px] font-bold text-[#00175B] leading-tight break-words" id="mTitle">Trenitalia - pt wl</h4>
+              <p class="text-[15px] text-[#00175B] mt-1.5 font-normal">Pago con tarjeta</p>
             </div>
-            <div class="text-right">
-              <p class="text-[18px] font-normal text-[#0B2545]" id="mAmount">-3,00 €</p>
-              <p class="text-[13px] text-slate-600 mt-0.5" id="mRunningBalance">9.113,87 €</p>
+            <div class="text-right shrink-0 whitespace-nowrap pl-2">
+              <p class="text-[20px] font-normal text-[#00175B] whitespace-nowrap" id="mAmount">-3,00 €</p>
+              <p class="text-[15px] text-[#00175B] mt-1.5 whitespace-nowrap" id="mRunningBalance">9.113,87 €</p>
             </div>
           </div>
-          <div class="flex items-center space-x-2 mt-4 pt-1 text-[13px] text-slate-700">
-            <img src="/data/transporte.svg" class="w-4 h-4 object-contain" alt="Tren, barco o bus" />
+          <div class="flex items-center space-x-2.5 mt-4 pt-0.5 text-[15px] text-[#00175B]">
+            <img src="/data/transporte.svg" class="w-6 h-6 object-contain" alt="Tren, barco o bus" />
             <span>Tren, barco o bus</span>
           </div>
         </div>
       </div>
 
       <!-- MAPA CON PIN ROJO -->
-      <div class="relative bg-[#DCEDED] rounded-3xl h-60 w-full overflow-hidden flex flex-col justify-between p-4 shadow-sm border border-teal-100">
+      <div class="relative bg-[#DCEDED] rounded-3xl h-52 w-full overflow-hidden flex flex-col justify-between p-4 shadow-sm border border-teal-100/60">
         <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(#1464A5 1px, transparent 1px); background-size: 16px 16px;"></div>
         
         <div class="flex-1 flex items-center justify-center relative">
-          <img src="/data/direccion.svg" class="w-12 h-12 object-contain" alt="Dirección" />
+          <img src="/data/direccion.svg" class="w-11 h-11 object-contain" alt="Dirección" />
         </div>
 
-        <div class="relative z-10 w-full bg-white/95 backdrop-blur-xs py-2.5 rounded-2xl text-center shadow-sm">
-          <p class="text-sm font-semibold text-[#0B2545]" id="mMapCityName">Pistoia, Italia</p>
+        <div class="relative z-10 w-full bg-white/95 backdrop-blur-xs py-2 rounded-xl text-center shadow-sm">
+          <p class="text-[14px] font-semibold text-[#00175B]" id="mMapCityName">Pistoia, Italia</p>
         </div>
       </div>
 
       <!-- Leyenda informativa -->
-      <div class="px-1 text-slate-600 space-y-3">
-        <p class="text-xs leading-relaxed flex items-start space-x-1.5">
-          <span class="text-sm font-bold text-slate-400 mt-[-1px]">ⓘ</span>
-          <span>La dirección mostrada es aproximada y puede variar según la localización establecida en el TPV de venta.</span>
-        </p>
-
-        <button class="flex items-center space-x-1.5 text-xs font-bold text-[#0B2545]">
-          <span class="text-sm">ⓘ</span>
-          <span>Más detalle de localización</span>
-        </button>
-      </div>
-
-      <!-- FICHA TÉCNICA -->
-      <div class="bg-white rounded-3xl p-5 shadow-xs border border-slate-100 space-y-4 text-xs">
-        <div class="flex justify-between items-center">
-          <span class="text-slate-500 font-medium">Fecha de la operación</span>
-          <span class="font-bold text-[#0B2545] text-sm" id="mOpDate">18/09/2026</span>
+      <div class="px-2 pt-1 pb-2 space-y-3.5">
+        <div class="flex items-start space-x-2 text-[#00175B]">
+          <svg class="w-3.5 h-3.5 text-[#00175B] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" />
+            <line x1="12" y1="8" x2="12" y2="8" stroke-linecap="round" stroke-width="2.5" />
+            <line x1="12" y1="11" x2="12" y2="16" stroke-linecap="round" />
+          </svg>
+          <p class="text-[13px] leading-snug font-normal text-[#00175B]">
+            La dirección mostrada es aproximada y puede variar según la localización establecida en el TPV de venta.
+          </p>
         </div>
 
-        <div class="flex justify-between items-center">
-          <span class="text-slate-500 font-medium">PAN</span>
-          <span class="font-bold text-[#0B2545] text-sm">4603-3210-5933-2596</span>
-        </div>
-
-        <div class="flex justify-between items-center">
-          <span class="text-slate-500 font-medium">Establecimiento</span>
-          <span class="font-bold text-[#0B2545] text-sm uppercase" id="mEstablishment">TRENITALIA - PT WL</span>
-        </div>
-
-        <div class="flex justify-between items-start">
-          <span class="text-slate-500 font-medium">Dirección del establecimiento</span>
-          <span class="font-bold text-[#0B2545] text-sm text-right uppercase" id="mAddress">PISTOIA, ITALIA.</span>
-        </div>
-
-        <div class="pt-2 text-center">
-          <button class="text-xs font-bold text-[#0B2545] flex items-center justify-center w-full space-x-1">
-            <span>Mostrar más</span>
-            <span class="text-[10px]">∨</span>
+        <div class="flex justify-center pt-1 pb-1">
+          <button class="flex items-center space-x-2 text-[#00175B] active:opacity-70 transition">
+            <svg class="w-3.5 h-3.5 text-[#00175B] shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <line x1="12" y1="8" x2="12" y2="8" stroke-linecap="round" stroke-width="2.5" />
+              <line x1="12" y1="11" x2="12" y2="16" stroke-linecap="round" />
+            </svg>
+            <span class="text-[14px] font-bold text-[#00175B]">Más detalle de localización</span>
           </button>
         </div>
       </div>
 
-      <!-- NOTA -->
-      <div class="bg-white rounded-3xl p-4 shadow-xs border border-slate-100">
+      <!-- FICHA TÉCNICA (Caja de detalles holgada) -->
+      <div class="bg-[#F7F9FB] rounded-3xl p-5.5 px-6 border border-slate-100/60 space-y-4">
         <div class="flex justify-between items-center">
-          <h4 class="text-sm font-bold text-[#0B2545]">Nota</h4>
-          <svg class="w-4 h-4 text-[#0B2545] stroke-[1.8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-          </svg>
+          <span class="text-slate-600 font-normal text-[15px] shrink-0 pr-2">Fecha de la operación</span>
+          <span class="font-bold text-[#00175B] text-[16px]" id="mOpDate">18/09/2026</span>
         </div>
-        <p class="text-xs text-slate-400 mt-2">Añade aquí tu nota</p>
+
+        <div class="flex justify-between items-center">
+          <span class="text-slate-600 font-normal text-[15px] shrink-0 pr-2">PAN</span>
+          <span class="font-bold text-[#00175B] text-[16px]">4603-3210-5933-2596</span>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="text-slate-600 font-normal text-[15px] shrink-0 pr-2">Establecimiento</span>
+          <span class="font-bold text-[#00175B] text-[16px] uppercase" id="mEstablishment">TRENITALIA - PT WL</span>
+        </div>
+
+        <div class="flex justify-between items-start">
+          <span class="text-slate-600 font-normal text-[15px] shrink-0 pr-2">Dirección del<br>establecimiento</span>
+          <span class="font-bold text-[#00175B] text-[16px] text-right uppercase" id="mAddress">PISTOIA,<br>ITALIA,</span>
+        </div>
+
+        <!-- Campos desplegables con Mostrar más / Mostrar menos -->
+        <div id="extraTechnicalDetails" class="hidden space-y-4 pt-1">
+          <div class="flex justify-between items-start">
+            <span class="text-slate-600 font-normal text-[15px] shrink-0 pr-2">Tipo de tarjeta</span>
+            <span class="font-bold text-[#00175B] text-[16px] text-right uppercase leading-tight">TARJETA JOVEN AHORA<br>BBVA</span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-slate-600 font-normal text-[15px] shrink-0 pr-2">Importe comisión</span>
+            <span class="font-bold text-[#00175B] text-[16px]">0,00 €</span>
+          </div>
+        </div>
+
+        <div class="pt-2.5 text-center">
+          <button id="toggleMoreBtn" onclick="toggleTechnicalDetails()" class="text-[15px] font-bold text-[#00175B] flex items-center justify-center w-full space-x-1.5 active:opacity-70 transition">
+            <span id="toggleMoreText">Mostrar más</span>
+            <svg id="toggleMoreIcon" class="w-4 h-4 stroke-[2.5] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- NOTA (Ampliada de tamaño como en la imagen) -->
+      <div class="bg-[#F7F9FB] rounded-3xl p-5.5 px-6 border border-slate-100/60 space-y-2 min-h-[92px] flex flex-col justify-center">
+        <div class="flex justify-between items-center">
+          <h4 class="text-[18px] font-bold text-[#00175B]">Nota</h4>
+          <button class="active:opacity-60 transition">
+            <svg class="w-5.5 h-5.5 text-[#00175B]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+          </button>
+        </div>
+        <p class="text-[15px] text-[#00175B]/80 font-normal">Añade aquí tu nota</p>
       </div>
 
       <!-- AÑADIR ADJUNTO + NOTA INFORMATIVA -->
       <div class="space-y-2">
-        <div class="bg-white rounded-3xl p-4 shadow-xs border border-slate-100 flex items-center space-x-3.5 cursor-pointer active:opacity-75 transition">
-          <div class="w-10 h-10 rounded-full bg-[#A3ECE6] text-[#0B2545] flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-[#F7F9FB] rounded-3xl p-4 px-5 border border-slate-100/60 flex items-center space-x-4 min-h-[72px] cursor-pointer active:opacity-75 transition">
+          <div class="w-[46px] h-[46px] rounded-full bg-[#70E0D2] text-white flex items-center justify-center shrink-0">
+            <svg class="w-5.5 h-5.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
             </svg>
           </div>
-          <span class="text-sm font-bold text-[#0B2545]">Añadir un adjunto</span>
+          <span class="text-[17px] font-bold text-[#00175B]">Añadir un adjunto</span>
         </div>
-        <p class="text-[11px] text-slate-500 leading-tight px-2 flex items-start space-x-1">
-          <span class="text-xs font-bold text-slate-400 mt-[-1px]">ⓘ</span>
-          <span>Para poder adjuntar archivos necesitas tener activados los permisos de almacenamiento y de fotos. Te los pediremos cuando intentes adjuntar el archivo.</span>
-        </p>
+        <div class="flex items-start space-x-2 text-[12px] text-[#00175B]/80 leading-snug px-2 pt-0.5">
+          <svg class="w-3.5 h-3.5 text-[#00175B] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" />
+            <line x1="12" y1="8" x2="12" y2="8" stroke-linecap="round" stroke-width="2.5" />
+            <line x1="12" y1="11" x2="12" y2="16" stroke-linecap="round" />
+          </svg>
+          <span>Para poder adjuntar archivos necesitas tener activados los permisos de almacenamiento de fotos. Puedes modificarlos desde los ajustes de tu dispositivo</span>
+        </div>
       </div>
 
       <!-- DIVIDIR ESTE GASTO CON BIZUM -->
-      <div class="bg-white rounded-3xl p-4 shadow-xs border border-slate-100 flex items-center space-x-3.5 cursor-pointer active:opacity-75 transition">
-        <div class="w-10 h-10 rounded-full bg-[#A3ECE6] text-[#0B2545] flex items-center justify-center shrink-0">
-          <img src="/data/bizum.svg" class="w-5 h-5 object-contain" alt="Bizum" />
+      <div class="bg-[#F7F9FB] rounded-3xl p-4 px-5 border border-slate-100/60 flex items-center space-x-4 min-h-[72px] cursor-pointer active:opacity-75 transition">
+        <div class="w-[46px] h-[46px] rounded-full bg-[#70E0D2] text-white flex items-center justify-center shrink-0">
+          <img src="/data/bizum.svg" class="w-5.5 h-5.5 object-contain brightness-0 invert" alt="Bizum" />
         </div>
-        <span class="text-sm font-bold text-[#0B2545]">Dividir este gasto con Bizum</span>
+        <span class="text-[17px] font-bold text-[#00175B] leading-tight">Dividir este gasto con Bizum</span>
       </div>
 
       <!-- ENVIAR DETALLE -->
-      <div class="bg-white rounded-3xl p-4 shadow-xs border border-slate-100 flex items-center space-x-3.5 cursor-pointer active:opacity-75 transition">
-        <div class="w-10 h-10 rounded-full bg-[#A3ECE6] text-[#0B2545] flex items-center justify-center shrink-0">
-          <svg class="w-5 h-5 stroke-[2] translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="bg-[#F7F9FB] rounded-3xl p-4 px-5 border border-slate-100/60 flex items-center space-x-4 min-h-[72px] cursor-pointer active:opacity-75 transition">
+        <div class="w-[46px] h-[46px] rounded-full bg-[#70E0D2] text-white flex items-center justify-center shrink-0">
+          <svg class="w-5.5 h-5.5 stroke-[2] translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
           </svg>
         </div>
-        <span class="text-sm font-bold text-[#0B2545]">Enviar detalle</span>
+        <span class="text-[17px] font-bold text-[#00175B]">Enviar detalle</span>
       </div>
 
       <!-- SOLICITAR CERTIFICADO -->
-      <div class="bg-white rounded-3xl p-4 shadow-xs border border-slate-100 flex items-center space-x-3.5 cursor-pointer active:opacity-75 transition">
-        <div class="w-10 h-10 rounded-full bg-[#A3ECE6] text-[#0B2545] flex items-center justify-center shrink-0">
-          <svg class="w-5 h-5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="bg-[#F7F9FB] rounded-3xl p-4 px-5 border border-slate-100/60 flex items-center space-x-4 min-h-[72px] cursor-pointer active:opacity-75 transition">
+        <div class="w-[46px] h-[46px] rounded-full bg-[#70E0D2] text-white flex items-center justify-center shrink-0">
+          <svg class="w-5.5 h-5.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
         </div>
-        <span class="text-sm font-bold text-[#0B2545]">Solicitar certificado</span>
+        <span class="text-[17px] font-bold text-[#00175B]">Solicitar certificado</span>
       </div>
 
       <!-- CAMBIAR CATEGORÍA -->
-      <div class="bg-white rounded-3xl p-4 shadow-xs border border-slate-100 flex items-center space-x-3.5 cursor-pointer active:opacity-75 transition">
-        <div class="w-10 h-10 rounded-full bg-[#A3ECE6] text-[#0B2545] flex items-center justify-center shrink-0">
-          <svg class="w-5 h-5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="bg-[#F7F9FB] rounded-3xl p-4 px-5 border border-slate-100/60 flex items-center space-x-4 min-h-[72px] cursor-pointer active:opacity-75 transition">
+        <div class="w-[46px] h-[46px] rounded-full bg-[#70E0D2] text-white flex items-center justify-center shrink-0">
+          <svg class="w-5.5 h-5.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
           </svg>
         </div>
-        <span class="text-sm font-bold text-[#0B2545]">Cambiar categoría</span>
+        <span class="text-[17px] font-bold text-[#00175B]">Cambiar categoría</span>
       </div>
 
       <!-- EXCLUIR CATEGORÍA -->
-      <div class="bg-white rounded-3xl p-4 shadow-xs border border-slate-100 flex items-center space-x-3.5 cursor-pointer active:opacity-75 transition">
-        <div class="w-10 h-10 rounded-full bg-[#A3ECE6] text-[#0B2545] flex items-center justify-center shrink-0">
-          <svg class="w-5 h-5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="bg-[#F7F9FB] rounded-3xl p-4 px-5 border border-slate-100/60 flex items-center space-x-4 min-h-[72px] cursor-pointer active:opacity-75 transition">
+        <div class="w-[46px] h-[46px] rounded-full bg-[#70E0D2] text-white flex items-center justify-center shrink-0">
+          <svg class="w-5.5 h-5.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
           </svg>
         </div>
-        <span class="text-sm font-bold text-[#0B2545]">Excluir categoría</span>
+        <span class="text-[17px] font-bold text-[#00175B]">Excluir categoría</span>
       </div>
     </div>
   </div>
@@ -424,7 +443,7 @@
         tg.disableVerticalSwipes();
       }
       if (tg.setHeaderColor) tg.setHeaderColor('#F7F9FB');
-      if (tg.setBackgroundColor) tg.setBackgroundColor('#F7F9FB');
+      if (tg.setBackgroundColor) tg.setBackgroundColor('#FFFFFF');
     }
 
     const MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
@@ -527,27 +546,27 @@
         const initials = tx.type === 'bus' ? 'AM' : 'TR';
 
         const row = document.createElement('div');
-        row.className = "bg-white rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col justify-between cursor-pointer active:scale-[0.99] transition";
+        row.className = "bg-white rounded-3xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] border border-slate-100/60 cursor-pointer active:scale-[0.99] transition space-y-2.5";
         row.onclick = () => openUnifiedDetail(tx, timeStr, running, txDate);
 
         row.innerHTML = `
-          <div class="flex items-start justify-between">
-            <div class="flex items-start space-x-3.5">
-              <div class="w-10 h-10 rounded-full bg-[#7D88F0] text-white flex items-center justify-center font-semibold text-xs tracking-wider shrink-0 mt-0.5">
+          <div class="flex items-center justify-between min-w-0">
+            <div class="flex items-center space-x-3.5 min-w-0 flex-1 pr-2">
+              <div class="w-10 h-10 rounded-full bg-[#93A0FF] text-[#00175B] flex items-center justify-center font-bold text-xs tracking-wider shrink-0">
                 ${initials}
               </div>
-              <div>
-                <h4 class="text-[15px] font-bold text-[#0B2545] leading-tight">${tx.name}</h4>
-                <p class="text-[13px] text-slate-500 mt-1 font-normal">Pago con tarjeta • ${timeStr}</p>
-              </div>
+              <h4 class="text-[17px] font-bold text-[#00175B] leading-snug break-words min-w-0 flex-1 -mt-1">${tx.name}</h4>
             </div>
-            <div class="text-right">
-              <p class="text-[17px] font-normal text-[#0B2545]">-${parseFloat(tx.amount).toFixed(2).replace('.', ',')} €</p>
-              <p class="text-[13px] text-slate-600 mt-0.5">${running.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
+            <div class="shrink-0 text-right whitespace-nowrap pl-1">
+              <p class="text-[19px] font-normal text-[#00175B] whitespace-nowrap">-${parseFloat(tx.amount).toFixed(2).replace('.', ',')} €</p>
             </div>
           </div>
-          <div class="flex items-center space-x-2 mt-3 pt-1 text-[13px] text-slate-700">
-            <img src="/data/transporte.svg" class="w-4 h-4 object-contain" alt="Tren, barco o bus" />
+          <div class="flex items-center justify-between pl-[54px] min-w-0 -mt-0.5">
+            <p class="text-[14px] text-[#00175B] font-normal min-w-0 flex-1 pr-2">Pago con tarjeta • ${timeStr}</p>
+            <p class="text-[14px] text-[#00175B] font-normal shrink-0 text-right whitespace-nowrap pl-1">${running.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
+          </div>
+          <div class="flex items-center space-x-2 pl-[54px] pt-0.5 text-[14px] text-[#00175B]">
+            <img src="/data/transporte.svg" class="w-5 h-5 object-contain shrink-0" alt="Tren, barco o bus" />
             <span>Tren, barco o bus</span>
           </div>
         `;
@@ -562,28 +581,65 @@
     }
 
     function openUnifiedDetail(tx, timeStr, balanceValue, txDate) {
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+      try {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+          window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+        }
+      } catch (e) {}
 
-      const dateStr = formatDateSpanish(txDate);
-      document.getElementById('mTopDateHeader').innerText = timeStr ? `${dateStr} ${timeStr}` : dateStr;
-      document.getElementById('mOpDate').innerText = formatDateShort(txDate);
-      document.getElementById('mAmount').innerText = `-${parseFloat(tx.amount).toFixed(2).replace('.', ',')} €`;
-      document.getElementById('mRunningBalance').innerText = `${balanceValue.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+      try {
+        const dateStr = formatDateSpanish(txDate);
+        document.getElementById('mTopDateHeader').innerText = timeStr ? `${dateStr} ${timeStr}` : dateStr;
+        document.getElementById('mOpDate').innerText = formatDateShort(txDate);
+        document.getElementById('mAmount').innerText = `-${parseFloat(tx.amount).toFixed(2).replace('.', ',')} €`;
+        document.getElementById('mRunningBalance').innerText = `${balanceValue.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
 
-      document.getElementById('mTitle').innerText = tx.fullName;
-      document.getElementById('mEstablishment').innerText = tx.establishment;
-      document.getElementById('mAddress').innerHTML = tx.address;
-      document.getElementById('mMapCityName').innerText = tx.city;
-      document.getElementById('mIdMovement').innerText = tx.movementId;
+        document.getElementById('mTitle').innerText = tx.fullName || tx.name;
+        document.getElementById('mEstablishment').innerText = tx.establishment || tx.name;
+        document.getElementById('mAddress').innerHTML = tx.address || 'PISTOIA,<br>ITALIA,';
+        document.getElementById('mMapCityName').innerText = tx.city || 'Pistoia, Italia';
+        
+        const movEl = document.getElementById('mIdMovement');
+        if (movEl) movEl.innerText = tx.movementId || '49018274TR88210009123847291048291 981290318239T';
+      } catch (err) {
+        console.error('Error setting detail view values:', err);
+      }
 
       document.getElementById('mainBankView').classList.add('hidden');
       document.getElementById('detailView').classList.remove('hidden');
       window.scrollTo(0, 0);
     }
 
+    function toggleTechnicalDetails() {
+      const extra = document.getElementById('extraTechnicalDetails');
+      const text = document.getElementById('toggleMoreText');
+      const icon = document.getElementById('toggleMoreIcon');
+      if (!extra || !text || !icon) return;
+
+      if (extra.classList.contains('hidden')) {
+        extra.classList.remove('hidden');
+        text.innerText = 'Mostrar menos';
+        icon.classList.add('rotate-180');
+      } else {
+        extra.classList.add('hidden');
+        text.innerText = 'Mostrar más';
+        icon.classList.remove('rotate-180');
+      }
+    }
+
     function closeDetail() {
       document.getElementById('detailView').classList.add('hidden');
       document.getElementById('mainBankView').classList.remove('hidden');
+      
+      const extra = document.getElementById('extraTechnicalDetails');
+      const text = document.getElementById('toggleMoreText');
+      const icon = document.getElementById('toggleMoreIcon');
+      if (extra && text && icon) {
+        extra.classList.add('hidden');
+        text.innerText = 'Mostrar más';
+        icon.classList.remove('rotate-180');
+      }
+      
       window.scrollTo(0, 0);
     }
   </script>

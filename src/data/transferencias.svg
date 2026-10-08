@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0B2545" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter">
-  <!-- Outer card frame with sharp 90-degree corners (no rounding) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00175B" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter">
+  <!-- Outer card frame with sharp 90-degree corners -->
   <rect x="2.5" y="5" width="18" height="12" />
   
   <!-- Lower left dot and line -->
-  <circle cx="5.5" cy="14" r="1.1" fill="#0B2545" stroke="none" />
-  <line x1="8.5" y1="14" x2="11.5" y2="14" stroke-width="2" />
+  <circle cx="5.5" cy="14" r="0.95" fill="#00175B" stroke="none" />
+  <line x1="8.5" y1="14" x2="11.5" y2="14" stroke-width="1.5" />
   
   <!-- Lower right circular badge with chevron arrow > -->
-  <circle cx="16" cy="14.5" r="4.2" fill="#FFFFFF" stroke="#0B2545" stroke-width="2" />
-  <path d="M 14.8 12.5 L 16.8 14.5 L 14.8 16.5" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter" />
+  <circle cx="16" cy="14.5" r="4.2" fill="#FFFFFF" stroke="#00175B" stroke-width="1.5" />
+  <path d="M 14.8 12.5 L 16.8 14.5 L 14.8 16.5" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" />
 </svg>
