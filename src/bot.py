@@ -69,7 +69,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def handle_purchase(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     try:
-        await query.answer("💳 Pago contactless autorizado")
+        await query.answer()
     except BadRequest:
         pass
 
@@ -139,7 +139,7 @@ async def handle_purchase(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def handle_reset(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     try:
-        await query.answer("Sistema reseteado")
+        await query.answer()
     except BadRequest:
         pass
 
